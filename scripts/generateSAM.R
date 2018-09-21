@@ -1,7 +1,5 @@
 library(readr)
 library(R6)
-#header_lines <- read_file("input/header.txt")
-#align_line <- read_file("input/alignment.txt")
 
 options(scipen=999)
 
@@ -99,23 +97,24 @@ FakeSAM <- R6Class("FakeSAM",
         chr_size=NULL
     )
 )
+# Usage examples.
+# fake_align_1 = FakeSAM$new("fake_align1.sam")
+# fake_align_1$add_flat_coverage("chr1", 1000000, 1005000, 1)
+# fake_align_1$write_file_and_close()
+# 
+# fake_align_1 = FakeSAM$new("fake_align2.sam")
+# fake_align_1$add_flat_coverage("chr1", 1000000, 1005000, 2)
+# fake_align_1$write_file_and_close()
+# 
+# fake_align_1 = FakeSAM$new("fake_align3.sam")
+# fake_align_1$add_flat_coverage("chr1", 1002500, 1005000, 3)
+# fake_align_1$write_file_and_close()
 
-fake_align_1 = FakeSAM$new("fake_align1.sam")
-fake_align_1$add_flat_coverage("chr1", 1000000, 1005000, 1)
-fake_align_1$write_file_and_close()
-
-fake_align_1 = FakeSAM$new("fake_align2.sam")
-fake_align_1$add_flat_coverage("chr1", 1000000, 1005000, 2)
-fake_align_1$write_file_and_close()
-
-fake_align_1 = FakeSAM$new("fake_align3.sam")
-fake_align_1$add_flat_coverage("chr1", 1002500, 1005000, 3)
-fake_align_1$write_file_and_close()
-
-for i in fake_align*.sam
-do
-    bn=`basename $i .sam`
-    samtools view -h -b $i | samtools sort - > $bn.bam
-    samtools index $bn.bam
-done
+# Example bash commands to go from sam to indexed bam.
+# for i in fake_align*.sam
+# do
+#     bn=`basename $i .sam`
+#     samtools view -h -b $i | samtools sort - > $bn.bam
+#     samtools index $bn.bam
+# done
 
